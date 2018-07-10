@@ -16,19 +16,17 @@ def arg_parser():
     END_POINT = args['ENDPOINT_URL']
         
 def main():
-    i = 0
+    counter = 0
+    prevCounter = 0
     start = time()
     started = str(datetime.datetime.now())
     while True: #time() - start <= 1:
         r = requests.get(END_POINT)
-        i += 1
-    sys.stdout.write("Started: [%s] Exited: [%s] Duration: [%s] Requests#: [%d] \n" % (
-        started,
-        str(datetime.datetime.now()),
-        time() - start,
-        i
-    ))
-
+        counter += 1
+        if (counter-prevCounter) >= 100:
+            sys.stdout.write("Requests#: [%d] \n" % counter )
+            prevCounter = counter
+            
 if __name__ == '__main__':
     arg_parser()
     main()
