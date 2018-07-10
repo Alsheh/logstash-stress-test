@@ -17,15 +17,17 @@ def arg_parser():
         
 def main():
     counter = 0
-    prevCounter = 0
+    request_id = 0
     start = time()
     started = str(datetime.datetime.now())
     while True: #time() - start <= 1:
         r = requests.get(END_POINT)
+        request_id += 1
         counter += 1
-        if (counter-prevCounter) >= 100:
-            sys.stdout.write("Requests#: [%d] \n" % counter )
-            prevCounter = counter
+        if time()-start >= 1:
+            sys.stdout.write("[Request#%d]\t %d requests/second\n" %(request_id, counter) )
+            counter = 0
+            start = time()
             
 if __name__ == '__main__':
     arg_parser()
