@@ -20,15 +20,12 @@ def main():
     request_id = 0
     start = time()
     started = str(datetime.datetime.now())
-    while True: #time() - start <= 1:
-        r = requests.get(END_POINT)
-        request_id += 1
+    while True: 
+        r = requests.get(END_POINT + '/test-%d' % counter)
         counter += 1
-        if time()-start >= 1:
-            sys.stdout.write("[Request#%d]\t %d requests/second\n" %(request_id, counter) )
-            counter = 0
-            start = time()
-            
+        if counter % 100 == 0:
+            print "Reqeust#", counter
+
 if __name__ == '__main__':
     arg_parser()
     main()
